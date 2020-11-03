@@ -11,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.capgemini.employeepayrollservice.EmployeePayrollService.statementType;
+import com.capgemini.employeepayrollservice.EmployeePayrollDBService.statementType;
 
 public class EmployeePayrollServiceTest 
 {
@@ -20,7 +20,7 @@ public class EmployeePayrollServiceTest
 
 	@Before
 	public void init() {
-		employeePayrollService = EmployeePayrollService.getInstance();
+		employeePayrollService = new EmployeePayrollService();
 	}
 
 	// To test the retrieved entries from database
@@ -36,7 +36,7 @@ public class EmployeePayrollServiceTest
 	public void givenUpdatedSalaryWhenUpdatedShouldSyncWithDatabase() throws DatabaseException {
 		employeeList = employeePayrollService.readData();
 		employeePayrollService.updateData("Diya", 3000000.00, statementType.STATEMENT);
-		boolean result = employeePayrollService.check(employeeList, "Diya", 3000000.00);
+		boolean result = employeePayrollService.checkEmployeeDataInSyncWithDatabase( "Diya");
 		assertTrue(result);
 	}
 
@@ -46,7 +46,7 @@ public class EmployeePayrollServiceTest
 	public void givenUpdatedSalaryWhenUpdatedUsingPreparedStatementShouldSyncWithDatabase() throws DatabaseException {
 		employeeList = employeePayrollService.readData();
 		employeePayrollService.updateData("Diya", 2000000.00, statementType.PREPARED_STATEMENT);
-		boolean result = employeePayrollService.check(employeeList, "Diya", 2000000.00);
+		boolean result = employeePayrollService.checkEmployeeDataInSyncWithDatabase( "Diya");
 		assertTrue(result);
 	}
 
@@ -100,10 +100,17 @@ public class EmployeePayrollServiceTest
 	// To test when a new employee is added to database
 	@Test
 	public void givenNewEmployeeWhenAddedShouldSyncWithDatabase() throws DatabaseException {
-		EmployeePayroll newEmployee = new EmployeePayroll(4, "Charlie", 'M', 4000000.00, LocalDate.now());
-		EmployeePayroll employeeData = null;
-        employeeData = employeePayrollService.addEmployeeData("Charlie", 'M', 4000000.00, LocalDate.now());
-		Assert.assertEquals(4,employeeData.getId());
+		employeePayrollService.addEmployeeData("Charlie", 'M', 4000000.00, LocalDate.now());
+		boolean result = employeePayrollService.checkEmployeeDataInSyncWithDatabase("Charlie");
+		Assert.assertTrue(result);
 	}
     
+	@Test
+	public void givenNewEmployeeWhenAddedShouldPopulatePayrollTable() throws DatabaseException {
+		boolean result = false;
+		employeePayrollService.addEmployeeToEmployeeAndPayroll("Radha", 'F', 3000000.00, LocalDate.now());
+		result = employeePayrollService.checkEmployeeDataInSyncWithDatabase("Radha");
+		assertTrue(result);
+	}
+
 }
