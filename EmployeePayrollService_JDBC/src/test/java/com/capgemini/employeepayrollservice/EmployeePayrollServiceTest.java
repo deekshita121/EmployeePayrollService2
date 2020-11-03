@@ -106,4 +106,15 @@ public class EmployeePayrollServiceTest
 		Assert.assertEquals(4,employeeData.getId());
 	}
     
+	@Test
+	public void givenNewEmployeeWhenAddedShouldPopulatePayrollTable() {
+		boolean result = false;
+		try {
+			employeePayrollService.addEmployeeToEmployeeAndPayroll("Radha", 'F', 3000000.00, LocalDate.now());
+			result = employeePayrollService.checkEmployeeDataInSyncWithDatabase("Rachel");
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		assertTrue(result);
+	}
 }

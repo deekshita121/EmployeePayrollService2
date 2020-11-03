@@ -1,31 +1,83 @@
 package com.capgemini.employeepayrollservice;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class EmployeePayroll {
 
-	private int id;
+	private int employeeId;
 	private String name;
+	private int companyId;
+	private String phoneNumber;
+	private String address;
 	private char gender;
 	private Double salary;
 	private LocalDate start;
+	private int[] departmentId;
 
 	// Constructor
-	public EmployeePayroll(int id, String name, Double salary, LocalDate start) {
-		this.id = id;
+	public EmployeePayroll(int id, String name, char gender, Double salary, LocalDate start) {
+		this(name, gender, salary, start);
+		this.employeeId = id;
+	}
+
+	public EmployeePayroll(String name, char gender, Double salary, LocalDate start) {
+		this.name = name;
+		this.gender = gender;
+		this.salary = salary;
+		this.start = start;
+	}
+
+	public EmployeePayroll(int id, String name, Double salary, LocalDate startDate) {
+		this.employeeId = id;
 		this.name = name;
 		this.salary = salary;
 		this.start = start;
 	}
 
-	public EmployeePayroll(int id, String name, char gender, Double salary, LocalDate start) {
-		this(id, name, salary, start);
-		this.gender = gender;
+	// Getters and Setters
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	// Getters and Setters
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int[] getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(int[] departmentId) {
+		this.departmentId = departmentId;
+	}
+
 	public int getId() {
-		return id;
+		return employeeId;
 	}
 
 	public char getGender() {
@@ -37,7 +89,7 @@ public class EmployeePayroll {
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.employeeId = id;
 	}
 
 	public String getName() {
@@ -56,17 +108,19 @@ public class EmployeePayroll {
 		this.salary = salary;
 	}
 
-	public LocalDate getStartDate() {
+	public LocalDate getStart() {
 		return start;
 	}
 
-	public void setStartDate(LocalDate startDate) {
-		this.start = startDate;
+	public void setStartDate(LocalDate start) {
+		this.start = start;
 	}
 
 	@Override
 	public String toString() {
-		return "EmployeePayroll [id=" + id + ", name=" + name + ", salary=" + salary + ", startDate=" + start + "]";
+		return "EmployeePayroll [employeeId=" + employeeId + ", name=" + name + ", companyId=" + companyId
+				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", gender=" + gender + ", salary=" + salary
+				+ ", startDate=" + start + ", departmentId=" + Arrays.toString(departmentId) + "]";
 	}
 
 	@Override
@@ -78,7 +132,7 @@ public class EmployeePayroll {
 		if (getClass() != obj.getClass())
 			return false;
 		EmployeePayroll other = (EmployeePayroll) obj;
-		if (id != other.id)
+		if (employeeId != other.employeeId)
 			return false;
 		if (name == null) {
 			if (other.name != null)
