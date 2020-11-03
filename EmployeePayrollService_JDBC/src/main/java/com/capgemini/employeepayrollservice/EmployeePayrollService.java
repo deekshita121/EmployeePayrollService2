@@ -22,7 +22,6 @@ public class EmployeePayrollService {
 	List<EmployeePayroll> employeePayrollList = new ArrayList<>();
 	PreparedStatement preparedStatement;
 
-
 	public EmployeePayrollService() {
 		employeePayrollDBService = employeePayrollDBService.getInstance();
 	}
@@ -77,8 +76,16 @@ public class EmployeePayrollService {
 	// To add employee details to both tables
 	public void addEmployeeToEmployeeAndPayroll(String name, char gender, double salary, LocalDate startDate)
 			throws DatabaseException {
-		EmployeePayroll employee = employeePayrollDBService.addEmployeeToEmployeeAndPayrollDB(name, gender, salary, startDate);
+		EmployeePayroll employee = employeePayrollDBService.addEmployeeToEmployeeAndPayrollDB(name, gender, salary,
+				startDate);
 		if (employee.getId() != -1)
 			employeePayrollList.add(employee);
 	}
+
+	public void addEmployeeToAllRelatedTables(EmployeePayroll employeePayroll) throws DatabaseException {
+		EmployeePayroll employee = employeePayrollDBService.addEmployeeToAllRelatedTablesDB(employeePayroll);
+		if (employee.getId() != -1)
+			employeePayrollList.add(employee);
+	}
+
 }

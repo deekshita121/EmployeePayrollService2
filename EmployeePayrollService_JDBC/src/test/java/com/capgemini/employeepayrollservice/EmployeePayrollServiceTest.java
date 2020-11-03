@@ -13,8 +13,7 @@ import org.junit.Test;
 
 import com.capgemini.employeepayrollservice.EmployeePayrollDBService.statementType;
 
-public class EmployeePayrollServiceTest 
-{
+public class EmployeePayrollServiceTest {
 	private EmployeePayrollService employeePayrollService;
 	private List<EmployeePayroll> employeeList = new ArrayList<>();
 
@@ -36,7 +35,7 @@ public class EmployeePayrollServiceTest
 	public void givenUpdatedSalaryWhenUpdatedShouldSyncWithDatabase() throws DatabaseException {
 		employeeList = employeePayrollService.readData();
 		employeePayrollService.updateData("Diya", 3000000.00, statementType.STATEMENT);
-		boolean result = employeePayrollService.checkEmployeeDataInSyncWithDatabase( "Diya");
+		boolean result = employeePayrollService.checkEmployeeDataInSyncWithDatabase("Diya");
 		assertTrue(result);
 	}
 
@@ -46,7 +45,7 @@ public class EmployeePayrollServiceTest
 	public void givenUpdatedSalaryWhenUpdatedUsingPreparedStatementShouldSyncWithDatabase() throws DatabaseException {
 		employeeList = employeePayrollService.readData();
 		employeePayrollService.updateData("Diya", 2000000.00, statementType.PREPARED_STATEMENT);
-		boolean result = employeePayrollService.checkEmployeeDataInSyncWithDatabase( "Diya");
+		boolean result = employeePayrollService.checkEmployeeDataInSyncWithDatabase("Diya");
 		assertTrue(result);
 	}
 
@@ -104,7 +103,7 @@ public class EmployeePayrollServiceTest
 		boolean result = employeePayrollService.checkEmployeeDataInSyncWithDatabase("Charlie");
 		Assert.assertTrue(result);
 	}
-    
+
 	@Test
 	public void givenNewEmployeeWhenAddedShouldPopulatePayrollTable() throws DatabaseException {
 		boolean result = false;
@@ -113,8 +112,22 @@ public class EmployeePayrollServiceTest
 		assertTrue(result);
 	}
 
-<<<<<<< HEAD
+	// To populate employee and payroll tables simultaneously
+	@Test
+	public void givenNewEmployeeWhenAddedShouldPopulateAllRelatedTables() {
+		boolean result = false;
+		EmployeePayroll employee = new EmployeePayroll("Phoebe", 1, "7098671234", "Telangana", 'F', LocalDate.now(),
+				2500000, new int[] { 51, 52 });
+		try {
+			employeePayrollService.addEmployeeToAllRelatedTables(employee);
+			result = employeePayrollService.checkEmployeeDataInSyncWithDatabase(employee.getName());
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		assertTrue(result);
+	}
 }
-=======
+
 }
->>>>>>> refs/heads/usecase9
+}
+
