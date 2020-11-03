@@ -12,27 +12,27 @@ public class EmployeePayroll {
 	private String address;
 	private char gender;
 	private Double salary;
-	private LocalDate start;
+	private LocalDate startDate;
 	private int[] departmentId;
 
 	// Constructor
-	public EmployeePayroll(int id, String name, char gender, Double salary, LocalDate start) {
-		this(name, gender, salary, start);
+	public EmployeePayroll(int id, String name, char gender, Double salary, LocalDate startDate) {
+		this(name, gender, salary, startDate);
 		this.employeeId = id;
 	}
 
-	public EmployeePayroll(String name, char gender, Double salary, LocalDate start) {
+	public EmployeePayroll(String name, char gender, Double salary, LocalDate startDate) {
 		this.name = name;
 		this.gender = gender;
 		this.salary = salary;
-		this.start = start;
+		this.startDate = startDate;
 	}
 
 	public EmployeePayroll(int id, String name, Double salary, LocalDate startDate) {
 		this.employeeId = id;
 		this.name = name;
 		this.salary = salary;
-		this.start = start;
+		this.startDate = startDate;
 	}
 
 	// Getters and Setters
@@ -108,19 +108,19 @@ public class EmployeePayroll {
 		this.salary = salary;
 	}
 
-	public LocalDate getStart() {
-		return start;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public void setStartDate(LocalDate start) {
-		this.start = start;
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 
 	@Override
 	public String toString() {
 		return "EmployeePayroll [employeeId=" + employeeId + ", name=" + name + ", companyId=" + companyId
 				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", gender=" + gender + ", salary=" + salary
-				+ ", startDate=" + start + ", departmentId=" + Arrays.toString(departmentId) + "]";
+				+ ", startDate=" + startDate + ", departmentId=" + Arrays.toString(departmentId) + "]";
 	}
 
 	@Override
@@ -144,11 +144,12 @@ public class EmployeePayroll {
 				return false;
 		} else if (!salary.equals(other.salary))
 			return false;
-		if (start == null) {
-			if (other.start != null)
+		if (startDate == null) {
+			if (other.startDate != null)
 				return false;
-		} else if (!start.equals(other.start))
+		} else if (!startDate.equals(other.startDate))
 			return false;
 		return true;
 	}
+
 }
