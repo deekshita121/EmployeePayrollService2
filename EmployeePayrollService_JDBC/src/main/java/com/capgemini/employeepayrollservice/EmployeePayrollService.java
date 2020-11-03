@@ -1,4 +1,3 @@
-  
 package com.capgemini.employeepayrollservice;
 
 import java.sql.Connection;
