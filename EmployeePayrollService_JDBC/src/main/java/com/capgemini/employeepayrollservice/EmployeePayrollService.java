@@ -88,4 +88,20 @@ public class EmployeePayrollService {
 			employeePayrollList.add(employee);
 	}
 
+	public void removeEmployeeFromPayrollTable(String string) throws DatabaseException {
+		employeePayrollList = employeePayrollDBService.readDataDB();
+		String name = null;
+		int rowAffected = employeePayrollDBService.removeEmployeeFromPayrollTableDB(name);
+		if (rowAffected != 0) {
+			EmployeePayroll employee = getEmployeeByName(employeePayrollList, name);
+			employeePayrollList.remove(employee);
+		}
+	}
+		
+
+	public boolean checkActiveStatus(String string) throws DatabaseException {
+		String name = null;
+		return employeePayrollDBService.checkActiveStatusDB(name);
+	}
+
 }

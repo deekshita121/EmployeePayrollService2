@@ -1,3 +1,4 @@
+
 package com.capgemini.employeepayrollservice;
 
 import static org.junit.Assert.assertTrue;
@@ -114,20 +115,22 @@ public class EmployeePayrollServiceTest {
 
 	// To populate employee and payroll tables simultaneously
 	@Test
-	public void givenNewEmployeeWhenAddedShouldPopulateAllRelatedTables() {
+	public void givenNewEmployeeWhenAddedShouldPopulateAllRelatedTables() throws DatabaseException {
 		boolean result = false;
-		EmployeePayroll employee = new EmployeePayroll("Phoebe", 1, "7098671234", "Telangana", 'F', LocalDate.now(),
+		EmployeePayroll employee = new EmployeePayroll("Prasad", 1, "7098671234", "Telangana", 'F', LocalDate.now(),
 				2500000, new int[] { 51, 52 });
-		try {
-			employeePayrollService.addEmployeeToAllRelatedTables(employee);
-			result = employeePayrollService.checkEmployeeDataInSyncWithDatabase(employee.getName());
-		} catch (DatabaseException e) {
-			e.printStackTrace();
-		}
+		employeePayrollService.addEmployeeToAllRelatedTables(employee);
+		result = employeePayrollService.checkEmployeeDataInSyncWithDatabase(employee.getName());
 		assertTrue(result);
 	}
-}
 
-}
+	@Test
+	public void givenEmployeeNameWhenDeletedFromPayrollShouldSyncWithDatabase() throws DatabaseException {
+		boolean result = false;
+		employeePayrollService.removeEmployeeFromPayrollTable("Bill");
+		result = employeePayrollService.checkActiveStatus("Bill");
+		assertTrue(result);
+
+	}
 }
 
