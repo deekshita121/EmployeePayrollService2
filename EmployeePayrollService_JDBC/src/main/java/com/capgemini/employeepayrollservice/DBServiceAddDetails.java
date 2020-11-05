@@ -11,14 +11,14 @@ import com.capgemini.employeepayrollservice.DatabaseException.exceptionType;
 
 public class DBServiceAddDetails {
 
-	public EmployeePayroll addEmployeeDataDBService(String name, char gender, double salary, LocalDate startDate)
+	public EmployeePayroll addEmployeeDataDBService(String name, char gender, double salary, LocalDate start)
 			throws DatabaseException {
 
 		int employeeId = -1;
 		EmployeePayroll employeePayrollData = null;
 		String sqlQuery = String.format(
-				"INSERT INTO employee (name,gender,salary,start_date) VALUES('%s','%s','%s','%s');", name, gender,
-				salary, Date.valueOf(startDate));
+				"INSERT INTO employee_payroll (name,gender,salary,start) VALUES('%s','%s','%s','%s');", name, gender,
+				salary, Date.valueOf(start));
 		try (Connection connection = DBConnection.getConnection()) {
 			Statement statement = connection.createStatement();
 			int rowAffected = statement.executeUpdate(sqlQuery, statement.RETURN_GENERATED_KEYS);
@@ -27,7 +27,7 @@ public class DBServiceAddDetails {
 				if (result.next())
 					employeeId = result.getInt(1);
 			}
-			employeePayrollData = new EmployeePayroll(employeeId, name, gender, salary, startDate);
+			employeePayrollData = new EmployeePayroll(employeeId, name, gender, salary, start);
 		} catch (SQLException e) {
 			throw new DatabaseException("Unable to execute query!!", exceptionType.EXECUTE_QUERY);
 		}
@@ -36,7 +36,7 @@ public class DBServiceAddDetails {
 
 	// To add new employee to both employee and payroll tables
 	public EmployeePayroll addEmployeeToEmployeeAndPayrollDBService(String name, char gender, double salary,
-			LocalDate startDate) throws DatabaseException {
+			LocalDate start) throws DatabaseException {
 		int employeeId = -1;
 		Connection connection = null;
 		EmployeePayroll employeePayrollData = null;
@@ -48,8 +48,8 @@ public class DBServiceAddDetails {
 		}
 		try (Statement statement = connection.createStatement()) {
 			String sql = String.format(
-					"INSERT INTO employee(name,gender,salary,start_date) VALUES ('%s','%s','%s','%s');", name, gender,
-					salary, Date.valueOf(startDate));
+					"INSERT INTO employee(name,gender,salary,start) VALUES ('%s','%s','%s','%s');", name, gender,
+					salary, Date.valueOf(start));
 			int rowAffected = statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 			if (rowAffected == 1) {
 				ResultSet resultSet = statement.getGeneratedKeys();
@@ -75,7 +75,7 @@ public class DBServiceAddDetails {
 					employeeId, salary, deductions, taxablePay, tax, netPay);
 			int rowAffected = statement.executeUpdate(sql);
 			if (rowAffected == 1) {
-				employeePayrollData = new EmployeePayroll(employeeId, name, salary, startDate);
+				employeePayrollData = new EmployeePayroll(employeeId, name, salary, start);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,9 +113,9 @@ public class DBServiceAddDetails {
 		}
 		try (Statement statement = connection.createStatement()) {
 			String sql = String.format(
-					"INSERT INTO employee(name,gender,salary,start_date,company_id,phone_number,address) VALUES ('%s','%s','%s','%s','%s','%s','%s');",
+					"INSERT INTO employee(name,gender,salary,start,company_id,phone_number,address) VALUES ('%s','%s','%s','%s','%s','%s','%s');",
 					employeePayroll.getName(), employeePayroll.getGender(), employeePayroll.getSalary(),
-					Date.valueOf(employeePayroll.getStartDate()), employeePayroll.getCompanyId(),
+					Date.valueOf(employeePayroll.getStart()), employeePayroll.getCompanyId(),
 					employeePayroll.getPhoneNumber(), employeePayroll.getAddress());
 			int rowAffected = statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 			if (rowAffected == 1) {
@@ -160,7 +160,7 @@ public class DBServiceAddDetails {
 			int rowAffected = statement.executeUpdate(sql);
 			if (rowAffected == 1) {
 				employeePayrollData = new EmployeePayroll(employeeId, employeePayroll.getName(),
-						employeePayroll.getSalary(), employeePayroll.getStartDate());
+						employeePayroll.getSalary(), employeePayroll.getStart());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

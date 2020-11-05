@@ -34,7 +34,7 @@ public class EmployeePayrollDBService {
 
 	// To read payroll Data from database
 	public List<EmployeePayroll> readDataDB() throws DatabaseException {
-		String sqlQuery = "SELECT employee_id, name, salary, start_date FROM employee WHERE is_active = true;";
+		String sqlQuery = "SELECT id, name, salary, start FROM employee_payroll WHERE is_active = true;";
 		return executeStatementQuery(sqlQuery);
 	}
 
@@ -54,8 +54,8 @@ public class EmployeePayrollDBService {
 		List<EmployeePayroll> employeePayrollList = new ArrayList<>();
 		try {
 			while (result.next()) {
-				employeePayrollList.add(new EmployeePayroll(result.getInt("employee_id"), result.getString("name"),
-						result.getDouble("salary"), result.getDate("start_date").toLocalDate()));
+				employeePayrollList.add(new EmployeePayroll(result.getInt("id"), result.getString("name"),
+						result.getDouble("salary"), result.getDate("start").toLocalDate()));
 			}
 		} catch (SQLException e) {
 			throw new DatabaseException("Unable to execute query!!", exceptionType.EXECUTE_QUERY);
@@ -123,11 +123,11 @@ public class EmployeePayrollDBService {
 	}
 
 	// To get employee data joined after a particular date
-	public List<EmployeePayroll> getEmployeeDataByDateDB(LocalDate startDate, LocalDate endDate)
+	public List<EmployeePayroll> getEmployeeDataByDateDB(LocalDate start, LocalDate endDate)
 			throws DatabaseException {
 		String sqlQuery = String.format(
 				"SELECT employee_id, name, salary, start_date FROM employee WHERE start_date BETWEEN '%s' AND '%s' AND is_active = true;",
-				Date.valueOf(startDate), Date.valueOf(endDate));
+				Date.valueOf(start), Date.valueOf(endDate));
 		return executeStatementQuery(sqlQuery);
 	}
 
@@ -149,16 +149,16 @@ public class EmployeePayrollDBService {
 
 
 	// To add new employee to database
-	public EmployeePayroll addEmployeeDataDB(String name, char gender, double salary, LocalDate startDate)
+	public EmployeePayroll addEmployeeDataDB(String name, char gender, double salary, LocalDate start)
 			throws DatabaseException {
 
-		return new DBServiceAddDetails().addEmployeeDataDBService(name, gender, salary, startDate);
+		return new DBServiceAddDetails().addEmployeeDataDBService(name, gender, salary, start);
 	}
 
 	// To add new employee to both employee and payroll tables
-	public EmployeePayroll addEmployeeToEmployeeAndPayrollDB(String name, char gender, double salary, LocalDate startDate)
+	public EmployeePayroll addEmployeeToEmployeeAndPayrollDB(String name, char gender, double salary, LocalDate start)
 			throws DatabaseException {
-	 return new DBServiceAddDetails().addEmployeeToEmployeeAndPayrollDBService(name, gender, salary, startDate);
+	 return new DBServiceAddDetails().addEmployeeToEmployeeAndPayrollDBService(name, gender, salary, start);
 	}
 	
 	public EmployeePayroll addEmployeeToAllRelatedTablesDB(EmployeePayroll employeePayroll) throws DatabaseException {
