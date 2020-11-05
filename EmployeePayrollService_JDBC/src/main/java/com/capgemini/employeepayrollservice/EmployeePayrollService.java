@@ -56,9 +56,9 @@ public class EmployeePayrollService {
 	}
 
 	// To get employee data joined after a particular date
-	public List<EmployeePayroll> getEmployeeDataByDate(LocalDate startDate, LocalDate endDate)
+	public List<EmployeePayroll> getEmployeeDataByDate(LocalDate start, LocalDate endDate)
 			throws DatabaseException {
-		return employeePayrollDBService.getEmployeeDataByDateDB(startDate, endDate);
+		return employeePayrollDBService.getEmployeeDataByDateDB(start, endDate);
 	}
 
 	// To get sum of salaries of male and female employees
@@ -67,17 +67,17 @@ public class EmployeePayrollService {
 	}
 
 	// To add new employee to database
-	public void addEmployeeData(String name, char gender, double salary, LocalDate startDate) throws DatabaseException {
-		EmployeePayroll employee = employeePayrollDBService.addEmployeeDataDB(name, gender, salary, startDate);
+	public void addEmployeeData(String name, char gender, double salary, LocalDate start) throws DatabaseException {
+		EmployeePayroll employee = employeePayrollDBService.addEmployeeDataDB(name, gender, salary, start);
 		if (employee.getId() != -1)
 			employeePayrollList.add(employee);
 	}
 
 	// To add employee details to both tables
-	public void addEmployeeToEmployeeAndPayroll(String name, char gender, double salary, LocalDate startDate)
+	public void addEmployeeToEmployeeAndPayroll(String name, char gender, double salary, LocalDate start)
 			throws DatabaseException {
 		EmployeePayroll employee = employeePayrollDBService.addEmployeeToEmployeeAndPayrollDB(name, gender, salary,
-				startDate);
+				start);
 		if (employee.getId() != -1)
 			employeePayrollList.add(employee);
 	}
@@ -102,6 +102,13 @@ public class EmployeePayrollService {
 	public boolean checkActiveStatus(String string) throws DatabaseException {
 		String name = null;
 		return employeePayrollDBService.checkActiveStatusDB(name);
+	}
+
+	public void addEmployeeListToTable(List<EmployeePayroll> employeeList) throws DatabaseException {
+		for (EmployeePayroll employee : employeeList) {
+			addEmployeeData(employee.getName(), employee.getGender(), employee.getSalary(), employee.getStart());
+		}
+		
 	}
 
 }

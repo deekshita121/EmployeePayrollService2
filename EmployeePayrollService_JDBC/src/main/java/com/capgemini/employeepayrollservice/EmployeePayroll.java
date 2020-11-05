@@ -12,39 +12,39 @@ public class EmployeePayroll {
 	private String address;
 	private char gender;
 	private Double salary;
-	private LocalDate startDate;
+	private LocalDate start;
 	private int[] departmentId;
 	private boolean isActive = true;
 
 	// Constructor
-	public EmployeePayroll(int id, String name, char gender, Double salary, LocalDate startDate) {
-		this(name, gender, salary, startDate);
+	public EmployeePayroll(int id, String name, char gender, Double salary, LocalDate start) {
+		this(name, gender, salary, start);
 		this.employeeId = id;
 	}
 
-	public EmployeePayroll(String name, char gender, Double salary, LocalDate startDate) {
+	public EmployeePayroll(String name, char gender, Double salary, LocalDate start) {
 		this.name = name;
 		this.gender = gender;
 		this.salary = salary;
-		this.startDate = startDate;
+		this.start = start;
 	}
 
-	public EmployeePayroll(int id, String name, Double salary, LocalDate startDate) {
+	public EmployeePayroll(int id, String name, Double salary, LocalDate start) {
 		this.employeeId = id;
 		this.name = name;
 		this.salary = salary;
-		this.startDate = startDate;
+		this.start = start;
 	}
 
 	public EmployeePayroll(String name, int companyId, String phoneNumber, String address, char gender,
-			LocalDate startDate, double salary, int[] departmentId) {
+			LocalDate start, double salary, int[] departmentId) {
 		this.name = name;
 		this.companyId = companyId;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.gender = gender;
 		this.salary = salary;
-		this.startDate = startDate;
+		this.start = start;
 		this.departmentId = departmentId;
 	}
 	
@@ -121,12 +121,12 @@ public class EmployeePayroll {
 		this.salary = salary;
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
+	public LocalDate getStart() {
+		return start;
 	}
 
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
+	public void setStart(LocalDate start) {
+		this.start = start;
 	}
 	
 	public boolean isActive() {
@@ -141,7 +141,7 @@ public class EmployeePayroll {
 	public String toString() {
 		return "EmployeePayroll [employeeId=" + employeeId + ", name=" + name + ", companyId=" + companyId
 				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", gender=" + gender + ", salary=" + salary
-				+ ", startDate=" + startDate + ", departmentId=" + Arrays.toString(departmentId) + "]";
+				+ ", start=" + start + ", departmentId=" + Arrays.toString(departmentId) + "]";
 	}
 
 	@Override
@@ -165,10 +165,10 @@ public class EmployeePayroll {
 				return false;
 		} else if (!salary.equals(other.salary))
 			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
+		if (start == null) {
+			if (other.start != null)
 				return false;
-		} else if (!startDate.equals(other.startDate))
+		} else if (!start.equals(other.start))
 			return false;
 		return true;
 	}
