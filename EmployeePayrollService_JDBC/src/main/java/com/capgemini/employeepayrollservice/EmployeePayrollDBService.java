@@ -34,7 +34,7 @@ public class EmployeePayrollDBService {
 
 	// To read payroll Data from database
 	public List<EmployeePayroll> readDataDB() throws DatabaseException {
-		String sqlQuery = "SELECT id, name, salary, start FROM employee_payroll WHERE is_active = true;";
+		String sqlQuery = "SELECT * FROM employee_payroll;";
 		return executeStatementQuery(sqlQuery);
 	}
 
@@ -55,7 +55,7 @@ public class EmployeePayrollDBService {
 		try {
 			while (result.next()) {
 				employeePayrollList.add(new EmployeePayroll(result.getInt("id"), result.getString("name"),
-						result.getDouble("salary"), result.getDate("start").toLocalDate()));
+					 result.getDouble("salary"), result.getDate("start").toLocalDate()));
 			}
 		} catch (SQLException e) {
 			throw new DatabaseException("Unable to execute query!!", exceptionType.EXECUTE_QUERY);

@@ -31,9 +31,13 @@ public class EmployeePayrollServiceThreadTest {
 		Instant start = Instant.now();
 		employeePayrollService.addEmployeeListToTable(employeeList);
 		Instant end = Instant.now();
+		Instant startThread = Instant.now();
+		employeePayrollService.addEmployeeListToTableWithThreads(employeeList);
+		Instant endThread = Instant.now();
 		employeeList = employeePayrollService.readData();
         System.out.println("Duration without Threads : " + Duration.between(start, end));
-		Assert.assertEquals(5, employeeList.size());
+        System.out.println("Duration without Threads : " + Duration.between(startThread, endThread));
+		Assert.assertEquals(10, employeeList.size());
 	}
 
 }

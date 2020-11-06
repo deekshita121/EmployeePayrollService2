@@ -139,10 +139,16 @@ public class EmployeePayroll {
 
 	@Override
 	public String toString() {
+		return "EmployeePayrollData [emp_id=" + employeeId + ", name=" + name + ", gender=" + gender + ", salary=" + salary
+				+ ", start=" + start + "]";
+	}
+	
+/*	@Override
+	public String toString() {
 		return "EmployeePayroll [employeeId=" + employeeId + ", name=" + name + ", companyId=" + companyId
 				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", gender=" + gender + ", salary=" + salary
 				+ ", start=" + start + ", departmentId=" + Arrays.toString(departmentId) + "]";
-	}
+	}*/
 
 	@Override
 	public boolean equals(Object obj) {
