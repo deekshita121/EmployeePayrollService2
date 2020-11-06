@@ -28,9 +28,7 @@ public class EmployeePayrollService {
 
 	// To read payroll Data from database
 	public List<EmployeePayroll> readData() throws DatabaseException {
-		System.out.println("po");
 		employeePayrollList = employeePayrollDBService.readDataDB();
-		System.out.println("finish");
 		return employeePayrollList;
 	}
 
@@ -58,8 +56,7 @@ public class EmployeePayrollService {
 	}
 
 	// To get employee data joined after a particular date
-	public List<EmployeePayroll> getEmployeeDataByDate(LocalDate start, LocalDate endDate)
-			throws DatabaseException {
+	public List<EmployeePayroll> getEmployeeDataByDate(LocalDate start, LocalDate endDate) throws DatabaseException {
 		return employeePayrollDBService.getEmployeeDataByDateDB(start, endDate);
 	}
 
@@ -99,7 +96,6 @@ public class EmployeePayrollService {
 			employeePayrollList.remove(employee);
 		}
 	}
-		
 
 	public boolean checkActiveStatus(String string) throws DatabaseException {
 		String name = null;
@@ -110,7 +106,7 @@ public class EmployeePayrollService {
 		for (EmployeePayroll employee : employeeList) {
 			addEmployeeData(employee.getName(), employee.getGender(), employee.getSalary(), employee.getStart());
 		}
-		
+
 	}
 
 	public void addEmployeeListToTableWithThreads(List<EmployeePayroll> employeeList) {
@@ -138,7 +134,32 @@ public class EmployeePayrollService {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}		
+		}
+	}
+
+	public void updateSalaryList(Map<String, Double> nameToUpdatedSalary) {
+		Map<Integer, Boolean> salaryUpdateStatus = new HashMap<>();
+		nameToUpdatedSalary.forEach((employeeName, salary) -> {
+			Runnable task = () -> {
+				salaryUpdateStatus.put(employeeName.hashCode(), false);
+				try {
+					updateData(employeeName, salary, statementType.STATEMENT);
+				} catch (DatabaseException e) {
+					e.printStackTrace();
+				}
+				salaryUpdateStatus.put(employeeName.hashCode(), true);
+			};
+			Thread thread = new Thread(task, employeeName);
+			thread.start();
+		});
+
+		while (salaryUpdateStatus.containsValue(false)) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
