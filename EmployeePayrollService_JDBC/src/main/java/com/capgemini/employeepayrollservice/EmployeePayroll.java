@@ -8,14 +8,15 @@ public class EmployeePayroll {
 
 	private int employeeId;
 	private String name;
-	private int companyId;
+	private Integer companyId;
 	private String phoneNumber;
 	private String address;
-	private char gender;
+	private Character gender;
 	private Double salary;
 	private LocalDate start;
 	private int[] departmentId;
 	private boolean isActive = true;
+	private int id;
 
 	// Constructor
 	public EmployeePayroll(int id, String name, char gender, Double salary, LocalDate start) {
@@ -31,7 +32,7 @@ public class EmployeePayroll {
 	}
 
 	public EmployeePayroll(int id, String name, Double salary, LocalDate start) {
-		this.employeeId = id;
+		this.id = id;
 		this.name = name;
 		this.salary = salary;
 		this.start = start;
@@ -145,8 +146,8 @@ public class EmployeePayroll {
 	
 	@Override
 	public String toString() {
-		return "EmployeePayrollData [emp_id=" + employeeId + ", name=" + name + ", gender=" + gender + ", salary=" + salary
-				+ ", start=" + start + "]";
+		return "EmployeePayrollData [ name=" + name + ", salary=" + salary
+				+ ", startDate=" + start + "]";
 	}
 	
 /*	@Override

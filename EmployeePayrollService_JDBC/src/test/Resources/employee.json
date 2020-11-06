@@ -1,0 +1,112 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": "Geetha",
+      "salary": 2500000,
+      "startDate": [
+        {
+          "year": 2020,
+          "month": 11,
+          "day": 3
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Hemachandra",
+      "salary": 3000000,
+      "startDate": [
+        {
+          "year": 2020,
+          "month": 11,
+          "day": 3
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Revanth",
+      "salary": 1000000,
+      "startDate": [
+        {
+          "year": 2020,
+          "month": 11,
+          "day": 4
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Mrudula",
+      "salary": 2000000,
+      "startDate": [
+        {
+          "year": 2020,
+          "month": 11,
+          "day": 4
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Lipsika",
+      "salary": 4000000,
+      "startDate": [
+        {
+          "year": 2020,
+          "month": 11,
+          "day": 5
+        }
+      ]
+    },
+    {
+      "employeeId": 0,
+      "name": "Malavika",
+      "salary": 4000000,
+      "start": {
+        "year": 2020,
+        "month": 11,
+        "day": 6
+      },
+      "isActive": true,
+      "id": 6
+    },
+    {
+      "employeeId": 0,
+      "name": "Malavika",
+      "salary": 4000000,
+      "start": {
+        "year": 2020,
+        "month": 11,
+        "day": 6
+      },
+      "isActive": true,
+      "id": 7
+    },
+    {
+      "employeeId": 0,
+      "name": "Malavika",
+      "salary": 4000000,
+      "start": {
+        "year": 2020,
+        "month": 11,
+        "day": 6
+      },
+      "isActive": true,
+      "id": 8
+    },
+    {
+      "employeeId": 0,
+      "name": "Malavika",
+      "salary": 4000000,
+      "start": {
+        "year": 2020,
+        "month": 11,
+        "day": 6
+      },
+      "isActive": true,
+      "id": 9
+    }
+  ]
+}

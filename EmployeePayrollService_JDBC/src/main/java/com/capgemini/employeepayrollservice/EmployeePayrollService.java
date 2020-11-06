@@ -19,9 +19,13 @@ public class EmployeePayrollService {
 
 	private static EmployeePayrollService employeePayrollService;
 	private static EmployeePayrollDBService employeePayrollDBService;
-	List<EmployeePayroll> employeePayrollList = new ArrayList<>();
+	List<EmployeePayroll> employeePayrollList;
 	PreparedStatement preparedStatement;
 
+	public EmployeePayrollService(List<EmployeePayroll> employeePayrollList) {
+		this.employeePayrollList = new ArrayList<>(employeePayrollList);
+	}
+	
 	public EmployeePayrollService() {
 		employeePayrollDBService = employeePayrollDBService.getInstance();
 	}
@@ -160,6 +164,15 @@ public class EmployeePayrollService {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void addEmployeePayroll(EmployeePayroll employeePayroll) {
+		employeePayrollList.add(employeePayroll);
+
+	}
+	
+	public long countEntries() {
+		return employeePayrollList.size();
 	}
 
 }
