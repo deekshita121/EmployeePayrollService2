@@ -1,0 +1,54 @@
+{
+  "employees": [
+    {
+      "employeeId": 1,
+      "name": "Geetha",
+      "salary": 2500000,
+      "startDate": {
+        "year": 2020,
+        "month": 11,
+        "day": 3
+      }
+    },
+    {
+      "employeeId": 2,
+      "name": "Hemachandra",
+      "salary": 3000000,
+      "startDate": {
+        "year": 2020,
+        "month": 11,
+        "day": 3
+      }
+    },
+    {
+      "employeeId": 3,
+      "name": "Revanth",
+      "salary": 1000000,
+      "startDate": {
+        "year": 2020,
+        "month": 11,
+        "day": 4
+      }
+    },
+    {
+      "employeeId": 4,
+      "name": "Mrudula",
+      "salary": 2000000,
+      "startDate": {
+        "year": 2020,
+        "month": 11,
+        "day": 4
+      }
+    },
+    {
+      "employeeId": 5,
+      "name": "Lipsika",
+      "salary": 4000000,
+      "startDate": {
+        "year": 2020,
+        "month": 11,
+        "day": 5
+      }
+    }
+  ]
+}
