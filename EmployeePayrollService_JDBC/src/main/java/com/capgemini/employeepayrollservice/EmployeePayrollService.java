@@ -28,7 +28,9 @@ public class EmployeePayrollService {
 
 	// To read payroll Data from database
 	public List<EmployeePayroll> readData() throws DatabaseException {
+		System.out.println("po");
 		employeePayrollList = employeePayrollDBService.readDataDB();
+		System.out.println("finish");
 		return employeePayrollList;
 	}
 
@@ -109,6 +111,34 @@ public class EmployeePayrollService {
 			addEmployeeData(employee.getName(), employee.getGender(), employee.getSalary(), employee.getStart());
 		}
 		
+	}
+
+	public void addEmployeeListToTableWithThreads(List<EmployeePayroll> employeeList) {
+		Map<Integer, Boolean> employeeAditionStatus = new HashMap<>();
+		employeeList.forEach(employee -> {
+			Runnable task = () -> {
+				employeeAditionStatus.put(employee.hashCode(), false);
+				System.out.println("Employee being added : " + employee.getName());
+				try {
+					addEmployeeData(employee.getName(), employee.getGender(), employee.getSalary(),
+							employee.getStart());
+				} catch (DatabaseException e) {
+					e.printStackTrace();
+				}
+				employeeAditionStatus.put(employee.hashCode(), true);
+				System.out.println("Employee added : " + employee.getName());
+			};
+			Thread thread = new Thread(task, employee.getName());
+			thread.start();
+		});
+
+		while (employeeAditionStatus.containsValue(false)) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}		
 	}
 
 }

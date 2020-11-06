@@ -28,6 +28,7 @@ public class DBServiceAddDetails {
 					employeeId = result.getInt(1);
 			}
 			employeePayrollData = new EmployeePayroll(employeeId, name, gender, salary, start);
+			System.out.println(employeePayrollData);
 		} catch (SQLException e) {
 			throw new DatabaseException("Unable to execute query!!", exceptionType.EXECUTE_QUERY);
 		}

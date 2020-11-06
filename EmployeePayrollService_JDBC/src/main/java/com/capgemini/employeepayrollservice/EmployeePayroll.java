@@ -2,6 +2,7 @@ package com.capgemini.employeepayrollservice;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class EmployeePayroll {
 
@@ -138,11 +139,22 @@ public class EmployeePayroll {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(name, gender, salary, start);
+	}
+	
+	@Override
+	public String toString() {
+		return "EmployeePayrollData [emp_id=" + employeeId + ", name=" + name + ", gender=" + gender + ", salary=" + salary
+				+ ", start=" + start + "]";
+	}
+	
+/*	@Override
 	public String toString() {
 		return "EmployeePayroll [employeeId=" + employeeId + ", name=" + name + ", companyId=" + companyId
 				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", gender=" + gender + ", salary=" + salary
 				+ ", start=" + start + ", departmentId=" + Arrays.toString(departmentId) + "]";
-	}
+	}*/
 
 	@Override
 	public boolean equals(Object obj) {
