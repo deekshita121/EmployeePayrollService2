@@ -2,6 +2,7 @@ package com.capgemini.employeepayrollservice;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class EmployeePayroll {
 
@@ -137,6 +138,11 @@ public class EmployeePayroll {
 		this.isActive = isActive;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, gender, salary, start);
+	}
+	
 	@Override
 	public String toString() {
 		return "EmployeePayrollData [emp_id=" + employeeId + ", name=" + name + ", gender=" + gender + ", salary=" + salary
