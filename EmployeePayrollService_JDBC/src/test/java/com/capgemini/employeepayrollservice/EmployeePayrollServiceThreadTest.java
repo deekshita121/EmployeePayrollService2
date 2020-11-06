@@ -4,7 +4,9 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,9 +37,24 @@ public class EmployeePayrollServiceThreadTest {
 		employeePayrollService.addEmployeeListToTableWithThreads(employeeList);
 		Instant endThread = Instant.now();
 		employeeList = employeePayrollService.readData();
-        System.out.println("Duration without Threads : " + Duration.between(start, end));
-        System.out.println("Duration without Threads : " + Duration.between(startThread, endThread));
+		System.out.println("Duration without Threads : " + Duration.between(start, end));
+		System.out.println("Duration without Threads : " + Duration.between(startThread, endThread));
 		Assert.assertEquals(10, employeeList.size());
+	}
+
+	@Test
+	public void givenListOfUpdatedSalaryWhenUpdatedShouldSyncWithDatabase() throws DatabaseException {
+		Map<String, Double> nameToUpdatedSalary = new HashMap<>();
+		nameToUpdatedSalary.put("Radha", 3500000.00);
+		nameToUpdatedSalary.put("Chandu", 3000000.00);
+		boolean result = false;
+		Instant startThread = Instant.now();
+		employeePayrollService.updateSalaryList(nameToUpdatedSalary);
+		Instant endThread = Instant.now();
+		
+		result = employeePayrollService.checkEmployeeDataInSyncWithDatabase("Radha");
+		System.out.println("Duration with Threads : " + Duration.between(startThread, endThread));
+		Assert.assertTrue(result);
 	}
 
 }
