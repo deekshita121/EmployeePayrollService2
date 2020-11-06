@@ -188,4 +188,9 @@ public class EmployeePayrollService {
 
 	}
 
+	public void removeEmployee(String name) {
+		EmployeePayroll employee = getEmployeeByName(employeePayrollList, name);
+		employeePayrollList.remove(employee);
+	}
+
 }

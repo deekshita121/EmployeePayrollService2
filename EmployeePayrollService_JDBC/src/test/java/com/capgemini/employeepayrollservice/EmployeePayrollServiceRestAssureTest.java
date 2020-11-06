@@ -81,4 +81,30 @@ public class EmployeePayrollServiceRestAssureTest {
 		int statusCode = response.getStatusCode();
 		Assert.assertEquals(200, statusCode);
 	}
+	
+	@Test
+	public void givenEmployeeDataWhenRetrievedShouldMatchNoofEntries() {
+		EmployeePayrollService employeePayrollService;
+		EmployeePayroll[] arrayOfEmployees = getEmployeeList();
+		employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmployees));
+		long entries = employeePayrollService.countEntries();
+		Assert.assertEquals(10, entries);
+	}
+	
+	@Test
+	public void givenEmployeeWhenDeletedShouldMatchResponseCode() {
+		EmployeePayrollService employeePayrollService;
+		EmployeePayroll[] arrayOfEmployees = getEmployeeList();
+		employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmployees));
+		EmployeePayroll employee = employeePayrollService.getEmployee("Geetha");
+		RequestSpecification request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		Response response = request.delete("/employees/" + employee.getEmployeeId());
+		int statusCode = response.getStatusCode();
+		Assert.assertEquals(200, statusCode);
+		employeePayrollService.removeEmployee("Geetha");
+		long entries = employeePayrollService.countEntries();
+		Assert.assertEquals(9, entries);
+	}
+
 }
