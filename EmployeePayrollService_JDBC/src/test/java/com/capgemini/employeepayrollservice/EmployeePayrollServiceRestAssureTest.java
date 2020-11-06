@@ -66,4 +66,45 @@ public class EmployeePayrollServiceRestAssureTest {
 		Assert.assertEquals(9, entries);
 	}
 
+	@Test
+	public void givenUpdatedSalaryWhenUpdatedShouldMatchResponseCode() {
+		EmployeePayrollService employeePayrollService;
+		EmployeePayroll[] arrayOfEmployees = getEmployeeList();
+		employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmployees));
+		employeePayrollService.updateEmployeeList("Malavika", 25000000);
+		EmployeePayroll employee = employeePayrollService.getEmployee("Malavika");
+		String empJson = new Gson().toJson(employee);
+		RequestSpecification request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		request.body(empJson);
+		Response response = request.put("/employees/" + employee.getEmployeeId());
+		int statusCode = response.getStatusCode();
+		Assert.assertEquals(200, statusCode);
+	}
+	
+	@Test
+	public void givenEmployeeDataWhenRetrievedShouldMatchNoofEntries() {
+		EmployeePayrollService employeePayrollService;
+		EmployeePayroll[] arrayOfEmployees = getEmployeeList();
+		employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmployees));
+		long entries = employeePayrollService.countEntries();
+		Assert.assertEquals(10, entries);
+	}
+	
+	@Test
+	public void givenEmployeeWhenDeletedShouldMatchResponseCode() {
+		EmployeePayrollService employeePayrollService;
+		EmployeePayroll[] arrayOfEmployees = getEmployeeList();
+		employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmployees));
+		EmployeePayroll employee = employeePayrollService.getEmployee("Geetha");
+		RequestSpecification request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		Response response = request.delete("/employees/" + employee.getEmployeeId());
+		int statusCode = response.getStatusCode();
+		Assert.assertEquals(200, statusCode);
+		employeePayrollService.removeEmployee("Geetha");
+		long entries = employeePayrollService.countEntries();
+		Assert.assertEquals(9, entries);
+	}
+
 }
