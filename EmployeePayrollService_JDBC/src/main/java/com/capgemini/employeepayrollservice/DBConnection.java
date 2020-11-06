@@ -18,9 +18,9 @@ public class DBConnection
 	 static String userName = "root";
 	 static String password = "Dhruv@876A";
 	 static java.sql.Connection con = null;
+	 	 
 	 
-	 
-	 public static java.sql.Connection getConnection () throws DatabaseException
+	 public synchronized static java.sql.Connection getConnection () throws DatabaseException
 		{
 			try {
 				//Driver Loading
